@@ -20,8 +20,8 @@ jobs:
       - name: SSH and Deploy
         uses: appleboy/ssh-action@master
         with:
-          host: "${{ secrets.185.229.220.231 }}"
-          username: ${{ secrets.jannalmr }}
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
           key: ${{ steps.path.outputs.path }}
           agent: yes
           script: |
