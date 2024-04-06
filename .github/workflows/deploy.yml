@@ -10,15 +10,6 @@ jobs:
         runs-on: ubuntu-latest
 
         steps:
-            - name: Clear node cache
-              uses: actions/cache@v3
-              with:
-                  path: ~/.npm
-                  key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-                  restore-keys: |
-                      ${{ runner.os }}-node-
-
-
             - name: Use Node.js 20
               uses: actions/setup-node@v3
               with:
@@ -27,12 +18,17 @@ jobs:
             - name: Checkout Repository
               uses: actions/checkout@v3
 
+            - name: Read path to private key
+              id: path
+              run: echo "::set-output name=path::$(cat path)"
+
             - name: SSH and Deploy
               uses: appleboy/ssh-action@master
               with:
                   host: ${{ secrets.SSH_HOST }}
                   username: ${{ secrets.SSH_USER }}
-                  key: ${{ secrets.SSH_PRIVATE_KEY }}
+                  key: ${{ steps.path.outputs.path }}
+                  agent: yes
                   script: |
                       cd /var/www/refletdegenie.shop
                       
