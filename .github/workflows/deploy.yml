@@ -25,6 +25,7 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
+          port: ${{ secrets.SSH_PORT }}
           script: |
             cd /var/www/refletdegenie.shop
             
@@ -37,3 +38,4 @@ jobs:
               # If not, clone the repository from GitHub
               git clone git@github.com:lamrij/RefletDeGenie.git
             fi
+
