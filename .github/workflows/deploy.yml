@@ -27,7 +27,7 @@ jobs:
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
           port: ${{ secrets.SSH_PORT }}
           script: |
-            cd /var/www/refletdegenie.shop
+            cd /var/www/refletdegenie.shop/github
 
             # Check if the repository directory already exists
             if [ -d "RefletDeGenie" ]; then

@@ -1,4 +1,5 @@
 // script.js
+//HELLO
 document.addEventListener('DOMContentLoaded', function() {
     // Send a GET request to the server to fetch the current time
     fetch('/get_time')
