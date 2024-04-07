@@ -1,11 +1,11 @@
-// hello i'm comming from the IDE right now !!!!!!
+// hello i'm comming from the IDE right now !!!!!!!!!!!
 const http = require('http');
 const express = require('express'); // Importer Express.js
 const socketIo = require('socket.io');
 const path = require('path');
 // Création de l'application Express
 const app = express();
-
+// hello i'm comming from the IDE right now !!!!!!!!!!!
 // Création du serveur HTTP avec Express
 const server = http.createServer(app);
 
