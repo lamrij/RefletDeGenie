@@ -1,43 +1,38 @@
 name: Deploy to Debian Server
 
 on:
-    push:
-        branches:
-            - main
+  push:
+    branches:
+      - main
 
 jobs:
-    deploy:
-        runs-on: ubuntu-latest
+  deploy:
+    runs-on: ubuntu-latest
 
-        steps:
-            - name: Use Node.js 20
-              uses: actions/setup-node@v3
-              with:
-                  node-version: '20'
+    steps:
+      - name: Use Node.js 20
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
 
-            - name: Checkout Repository
-              uses: actions/checkout@v3
+      - name: Checkout Repository
+        uses: actions/checkout@v3
 
-            - name: Read path to private key
-              id: path
-              run: echo "::set-output name=path::$(cat path)"
-
-            - name: SSH and Deploy
-              uses: appleboy/ssh-action@master
-              with:
-                  host: ${{ secrets.SSH_HOST }}
-                  username: ${{ secrets.SSH_USER }}
-                  key: ${{ secrets.SSH_PRIVATE_KEY }}
-                  agent: yes
-                  script: |
-                      cd /var/www/refletdegenie.shop
-                      
-                      # Check if the repository directory already exists
-                      if [ -d "RefletDeGenie" ]; then
-                        # If yes, perform a git pull to update the repository
-                        cd RefletDeGenie
-                        git pull origin main
-                      else
-                        # If not, clone the repository from GitHub
-                        git clone git@github.com:lamrij/RefletDeGenie.git
-                      fi
+      - name: SSH and Deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd /var/www/refletdegenie.shop
+            
+            # Check if the repository directory already exists
+            if [ -d "RefletDeGenie" ]; then
+              # If yes, perform a git pull to update the repository
+              cd RefletDeGenie
+              git pull origin main
+            else
+              # If not, clone the repository from GitHub
+              git clone git@github.com:lamrij/RefletDeGenie.git
+            fi
